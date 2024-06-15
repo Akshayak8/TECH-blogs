@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ArticleItem from "./ArticalItems";
 
 const mediumRssFeedUrl =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@yourMediumUsername";
+  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@akshayak8";
 
 const Articles = ({ selectedCategory }) => {
   const [articles, setArticles] = useState([]);
