@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/TECH-blogs/static/css/main.1862b3f8.css",
+    "main.js": "/TECH-blogs/static/js/main.0b3fb6cf.js",
+    "static/js/453.9d2b3867.chunk.js": "/TECH-blogs/static/js/453.9d2b3867.chunk.js",
+    "index.html": "/TECH-blogs/index.html",
+    "main.1862b3f8.css.map": "/TECH-blogs/static/css/main.1862b3f8.css.map",
+    "main.0b3fb6cf.js.map": "/TECH-blogs/static/js/main.0b3fb6cf.js.map",
+    "453.9d2b3867.chunk.js.map": "/TECH-blogs/static/js/453.9d2b3867.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1862b3f8.css",
+    "static/js/main.0b3fb6cf.js"
+  ]
+}
