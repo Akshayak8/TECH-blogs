@@ -1,6 +1,5 @@
 import React from "react";
 
-// Function to format a given date string
 function formatDate(inputText) {
   const inputDate = new Date(inputText);
   const options = {
@@ -11,40 +10,24 @@ function formatDate(inputText) {
   return inputDate.toLocaleDateString(undefined, options);
 }
 
-// Function to extract content from HTML string using regex patterns
 function extractContent(htmlString) {
-  const h4Pattern = /<h4>(.*?)<\/h4>/s;
-  const pPattern = /<p>(.*?)<\/p>/s;
-
-  const h4Match = htmlString.match(h4Pattern);
-  const pMatch = htmlString.match(pPattern);
-
-  if (h4Match && pMatch) {
-    const h4Content = h4Match[1];
-    const pContent = pMatch[1];
-    return `${h4Content} - ${pContent}`;
-  } else if (pMatch) {
-    const pContent = pMatch[1];
-    return pContent;
-  }
-  return null;
+  const div = document.createElement("div");
+  div.innerHTML = htmlString;
+  const firstParagraph = div.querySelector("p");
+  return firstParagraph ? firstParagraph.textContent : "";
 }
 
-// Function to extract the first image URL from the HTML string
 function extractImage(htmlString) {
-  const imgPattern = /<img[^>]+src="([^">]+)"/i;
-  const imgMatch = htmlString.match(imgPattern);
-  return imgMatch ? imgMatch[1] : null;
+  const div = document.createElement("div");
+  div.innerHTML = htmlString;
+  const img = div.querySelector("img");
+  return img ? img.src : "default-image-url.png";
 }
 
-// Component to render article items
-function ArticleItems({ article }) {
-  const content = extractContent(article.description);
+const ArticleItems = ({ article }) => {
+  const content = extractContent(article.content);
   const formattedDate = formatDate(article.pubDate);
-  const imageSrc =
-    article.thumbnail ||
-    extractImage(article.description) ||
-    "default-image-url.png"; // Use a default image if none found
+  const imageSrc = article.thumbnail || extractImage(article.content);
 
   return (
     <div className="article-card">
@@ -75,12 +58,12 @@ function ArticleItems({ article }) {
             </p>
           </div>
           <div className="article-details">
-            <h2 className="article-date">Published on : {formattedDate}</h2>
+            <h2 className="article-date">Published on: {formattedDate}</h2>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default ArticleItems;

@@ -1,18 +1,17 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ArticleItems from "./ArticalItems";
 
-const mediumArticle =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@akshayak8";
+const mediumRSSFeed = "https://medium.com/feed/@akshayak8";
+const rssToJsonServiceUrl = `https://cors-anywhere.herokuapp.com/https://api.rss2json.com/v1/api.json?rss_url=${mediumRSSFeed}`;
 
 const Articles = ({ selectedCategory }) => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(mediumArticle)
+    fetch(rssToJsonServiceUrl)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched Data:", data.items); // Log the fetched data
         if (data.items) {
           setArticles(data.items);
         } else {
