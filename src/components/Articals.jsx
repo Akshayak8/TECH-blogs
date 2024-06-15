@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ArticleItem from "./ArticalItems";
 
-const mediumRssFeedUrl =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@akshayak8";
+const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+const mediumRssFeedUrl = "https://medium.com/feed/@akshayak8";
+const fetchUrl = `${proxyUrl}${mediumRssFeedUrl}`;
 
 const Articles = ({ selectedCategory }) => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(mediumRssFeedUrl)
+    fetch(fetchUrl)
       .then((res) => res.json())
       .then((data) => {
         if (data.items) {
@@ -19,6 +20,7 @@ const Articles = ({ selectedCategory }) => {
         }
       })
       .catch((err) => {
+        console.error("Error fetching articles:", err);
         setError("Failed to fetch articles");
       });
   }, []);
