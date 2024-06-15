@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import ArticleItems from "./ArticalItems";
+import ArticleItem from "./ArticalItems";
 
-const mediumRSSFeed = "https://medium.com/feed/@akshayak8";
-const rssToJsonServiceUrl = `https://cors-anywhere.herokuapp.com/https://api.rss2json.com/v1/api.json?rss_url=${mediumRSSFeed}`;
+const mediumRssFeedUrl =
+  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@yourMediumUsername";
 
 const Articles = ({ selectedCategory }) => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(rssToJsonServiceUrl)
+    fetch(mediumRssFeedUrl)
       .then((res) => res.json())
       .then((data) => {
         if (data.items) {
@@ -19,7 +19,6 @@ const Articles = ({ selectedCategory }) => {
         }
       })
       .catch((err) => {
-        console.error("Error fetching articles:", err);
         setError("Failed to fetch articles");
       });
   }, []);
@@ -37,7 +36,7 @@ const Articles = ({ selectedCategory }) => {
   return (
     <div className="article__container container grid">
       {filteredArticles.map((article, index) => (
-        <ArticleItems key={index} article={article} />
+        <ArticleItem key={index} article={article} />
       ))}
     </div>
   );

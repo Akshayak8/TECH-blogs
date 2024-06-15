@@ -1,33 +1,24 @@
 import React from "react";
 
-function formatDate(inputText) {
-  const inputDate = new Date(inputText);
-  const options = {
+const extractContent = (htmlString) => {
+  const div = document.createElement("div");
+  div.innerHTML = htmlString;
+  return div.textContent || div.innerText || "";
+};
+
+const formatDate = (inputDate) => {
+  const date = new Date(inputDate);
+  return date.toLocaleDateString(undefined, {
     year: "numeric",
     month: "short",
     day: "numeric",
-  };
-  return inputDate.toLocaleDateString(undefined, options);
-}
+  });
+};
 
-function extractContent(htmlString) {
-  const div = document.createElement("div");
-  div.innerHTML = htmlString;
-  const firstParagraph = div.querySelector("p");
-  return firstParagraph ? firstParagraph.textContent : "";
-}
-
-function extractImage(htmlString) {
-  const div = document.createElement("div");
-  div.innerHTML = htmlString;
-  const img = div.querySelector("img");
-  return img ? img.src : "default-image-url.png";
-}
-
-const ArticleItems = ({ article }) => {
-  const content = extractContent(article.content);
+const ArticleItem = ({ article }) => {
+  const content = extractContent(article.description);
   const formattedDate = formatDate(article.pubDate);
-  const imageSrc = article.thumbnail || extractImage(article.content);
+  const imageSrc = article.thumbnail || "default-image-url.png"; // Use a default image if none found
 
   return (
     <div className="article-card">
@@ -66,4 +57,4 @@ const ArticleItems = ({ article }) => {
   );
 };
 
-export default ArticleItems;
+export default ArticleItem;
